@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <span class="material-symbols-outlined">
+                        arrow_back_ios_new
+                    </span>
+                </div>
+                <div class="circle">
+                    <span class="material-symbols-outlined">
+                        list
+                    </span>
+                </div>
+            </nav>
+            <img src="3cf65f45545334547b4b654dbeeb36bf.jpg" class="song-img">
+            <h1>Superman</h1>
+            <p>Emine, Dina Rae</p>
+
+            <audio id="song">
+                <source src="Eminem - Superman (Clean Version) ft. Dina Rae [TubeRipper.com].mp3">
+            </audio>
+            <input type="range" value="0" id="progress">
+
+            <div class="controls">
+                <div>
+                    <span class="material-symbols-outlined">
+                        skip_previous
+                    </span>
+                </div>
+                <div onclick="playPause()">
+                    <span class="material-symbols-outlined" id="ctrlIcon">
+                        play_arrow
+                    </span>
+                </div>
+                <div>
+                    <span class="material-symbols-outlined">
+                        skip_next
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        let progress = document.getElementById("progress")
+        let song = document.getElementById("song")
+        let ctrlIcon = document.getElementById("ctrlIcon")
+
+
+        song.onloadedmetadata = function () {
+            progress.max = song.duration;
+            progress.value = song.currentTime;
+
+        }
+
+        function playPause() {
+            if (ctrlIcon.textContent.trim() === "play_arrow") {
+                song.play();
+                ctrlIcon.textContent = "pause"; // Change content to pause
+            } else {
+                song.pause();
+                ctrlIcon.textContent = "play_arrow"; // Change content to play_arrow
+            }
+        }
+
+        if (song.play()) {
+            setInterval(() => {
+                progress.value = song.currentTime;
+            }, 500);
+        }
+
+        progress.onchange = function () {
+            song.play();
+            song.currentTime = progress.value;
+            ctrlIcon.textContent = "pause";
+        }
+
+    </script>
+</body>
+
+</html>
